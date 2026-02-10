@@ -1,26 +1,355 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================
+   MARITANI — Color Palette & Design System
+   Tema: Maritim (Laut) + Pertanian (Tani)
+
+   Filosofi Warna:
+   - Teal/Cyan  → Laut, kesegaran, kepercayaan
+   - Emerald    → Pertanian, alam, organik
+   - Amber/Gold → Panen, kemakmuran, premium
+   - Slate      → Profesional, modern, bersih
+   ======================================== */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === Maritani Theme Colors === */
+  --background: #fafaf9;
+  --foreground: #0f172a;
+
+  /* Primary: Deep Teal (Laut bertemu Darat) */
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+
+  /* Secondary: Cool Slate */
+  --secondary: #f5f5f4;
+  --secondary-foreground: #0f172a;
+
+  /* Accent: Warm Amber (Panen & Kemakmuran) */
+  --accent: #f59e0b;
+  --accent-foreground: #1c1917;
+
+  /* Muted */
+  --muted: #f5f5f4;
+  --muted-foreground: #64748b;
+
+  /* Card */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  /* Popover */
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  /* Borders & Inputs */
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0d9488;
+
+  /* Destructive */
+  --destructive: #ef4444;
+
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* === Maritani Custom Extensions === */
+  --ocean: #0ea5e9;
+  --ocean-foreground: #ffffff;
+  --emerald: #10b981;
+  --emerald-foreground: #ffffff;
+  --amber: #f59e0b;
+  --amber-foreground: #1c1917;
+  --danger: #ef4444;
+  --warning: #f97316;
+  --success: #10b981;
+
+  /* Chart Colors */
+  --chart-1: #0d9488;
+  --chart-2: #0ea5e9;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #f97316;
+
+  /* Sidebar */
+  --sidebar: #fafaf9;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #0d9488;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #0d9488;
+}
+
+.dark {
+  --background: #020617;
+  --foreground: #f1f5f9;
+
+  /* Primary: Bright Teal */
+  --primary: #2dd4bf;
+  --primary-foreground: #042f2e;
+
+  /* Secondary */
+  --secondary: #1e293b;
+  --secondary-foreground: #f1f5f9;
+
+  /* Accent: Bright Amber */
+  --accent: #fbbf24;
+  --accent-foreground: #451a03;
+
+  /* Muted */
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+
+  /* Card */
+  --card: #0f172a;
+  --card-foreground: #f1f5f9;
+
+  /* Popover */
+  --popover: #0f172a;
+  --popover-foreground: #f1f5f9;
+
+  /* Borders & Inputs */
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #2dd4bf;
+
+  /* Destructive */
+  --destructive: #f87171;
+
+  /* Custom Extensions */
+  --ocean: #38bdf8;
+  --ocean-foreground: #0c4a6e;
+  --emerald: #34d399;
+  --emerald-foreground: #064e3b;
+  --amber: #fbbf24;
+  --amber-foreground: #451a03;
+  --danger: #f87171;
+  --warning: #fb923c;
+  --success: #34d399;
+
+  /* Chart Colors */
+  --chart-1: #2dd4bf;
+  --chart-2: #38bdf8;
+  --chart-3: #34d399;
+  --chart-4: #fbbf24;
+  --chart-5: #fb923c;
+
+  /* Sidebar */
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #2dd4bf;
+  --sidebar-primary-foreground: #042f2e;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #2dd4bf;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+
+  /* Maritani Custom Colors */
+  --color-ocean: var(--ocean);
+  --color-ocean-foreground: var(--ocean-foreground);
+  --color-emerald: var(--emerald);
+  --color-emerald-foreground: var(--emerald-foreground);
+  --color-amber: var(--amber);
+  --color-amber-foreground: var(--amber-foreground);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+
+  /* Chart */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-heading);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 16px);
+  --radius-4xl: calc(var(--radius) + 20px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color - Teal themed */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* === Heading Font === */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+}
+
+/* === Card Hover Lift === */
+.card-hover-lift {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -8px rgba(13, 148, 136, 0.12);
+}
+
+/* === Button Press Effect === */
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ========================================
+   FOOTER ANIMATIONS & EFFECTS
+   ======================================== */
+
+/* Wave Animation - Flowing */
+@keyframes wave-flow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-wave-flow {
+  animation: wave-flow 15s linear infinite;
+}
+
+/* Fade Up Animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fade-up 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+/* Glass Card Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Blob Animation for decoration */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(15px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-10px, 10px) scale(0.95);
+  }
+}
+
+.animate-blob {
+  animation: blob 8s ease-in-out infinite;
+}
+
+.animate-blob-delay {
+  animation: blob 10s ease-in-out infinite 2s;
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  opacity: 0.8;
 }
