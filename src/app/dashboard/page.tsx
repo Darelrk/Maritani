@@ -300,7 +300,7 @@ export default async function DashboardPage() {
                                                 </div>
 
                                                 <div className="space-y-2">
-                                                    {order.items.map((item) => (
+                                                    {order.items.map((item: any) => (
                                                         <div key={item.id} className="flex justify-between text-sm items-center py-1 border-t pt-2 first:border-0 first:pt-0">
                                                             <div className="flex items-center gap-2">
                                                                 <span>{item.product.name} <span className="text-muted-foreground">x{item.qty}</span></span>
