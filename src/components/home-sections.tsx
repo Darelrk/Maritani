@@ -14,11 +14,9 @@ import {
 export function HeroSection() {
     return (
         <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-            {/* Background decorations */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-emerald/20 rounded-full blur-3xl" />
-            <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-primary rounded-full opacity-20 animate-bounce" />
-            <div className="absolute bottom-1/3 right-1/4 w-6 h-6 bg-emerald rounded-full opacity-20 animate-pulse" />
+            {/* Optimized background - reduced blur intensity */}
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full" style={{ filter: 'blur(60px)' }} />
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-emerald/10 rounded-full" style={{ filter: 'blur(60px)' }} />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 {/* Badge pill */}
@@ -68,16 +66,16 @@ export function HeroSection() {
                     </Button>
                 </div>
 
-                {/* Stats counter */}
-                <div className="mt-20 grid grid-cols-2 gap-8 md:grid-cols-4 border-t border-border pt-10">
+                {/* Stats counter - Optimized for LCP */}
+                <div className="mt-20 grid grid-cols-2 gap-8 md:grid-cols-4 border-t border-border pt-10 will-change-transform">
                     {[
                         { value: "2,500+", label: "Produk Segar" },
                         { value: "800+", label: "Petani & Nelayan" },
                         { value: "50+", label: "Kota Terjangkau" },
                         { value: "99%", label: "Lolos Kualitas" },
-                    ].map((stat) => (
-                        <div key={stat.label} className="flex flex-col items-center">
-                            <span className="text-3xl font-bold text-foreground">
+                    ].map((stat, index) => (
+                        <div key={stat.label} className="flex flex-col items-center" style={{ contentVisibility: 'auto' }}>
+                            <span className="text-3xl font-bold text-foreground tabular-nums">
                                 {stat.value}
                             </span>
                             <span className="text-sm text-muted-foreground mt-1">

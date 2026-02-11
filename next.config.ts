@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  
+  // Image optimization
   images: {
     remotePatterns: [
       {
@@ -14,6 +20,13 @@ const nextConfig: NextConfig = {
         hostname: "lh3.googleusercontent.com",
       },
     ],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+  
+  // Experimental features for performance
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
   },
 };
 
