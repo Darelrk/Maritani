@@ -170,8 +170,9 @@ export default function RegisterPage() {
                             <div className="space-y-2">
                                 <Label>Tipe Akun</Label>
                                 <div className="grid grid-cols-2 gap-3">
-                                    <label className="cursor-pointer">
+                                    <label htmlFor="accountType-personal" className="cursor-pointer">
                                         <input
+                                            id="accountType-personal"
                                             type="radio"
                                             name="accountType"
                                             value="PERSONAL"
@@ -183,8 +184,9 @@ export default function RegisterPage() {
                                             <span className="text-xs text-muted-foreground">Untuk pemakaian pribadi</span>
                                         </div>
                                     </label>
-                                    <label className="cursor-pointer">
+                                    <label htmlFor="accountType-business" className="cursor-pointer">
                                         <input
+                                            id="accountType-business"
                                             type="radio"
                                             name="accountType"
                                             value="BUSINESS"
@@ -202,8 +204,9 @@ export default function RegisterPage() {
                             <div className="space-y-2">
                                 <Label>Daftar Sebagai</Label>
                                 <div className="grid grid-cols-2 gap-3">
-                                    <label className="cursor-pointer">
+                                    <label htmlFor="role-user" className="cursor-pointer">
                                         <input
+                                            id="role-user"
                                             type="radio"
                                             name="role"
                                             value="USER"
@@ -215,8 +218,9 @@ export default function RegisterPage() {
                                             <span className="text-xs text-muted-foreground">Beli produk segar</span>
                                         </div>
                                     </label>
-                                    <label className="cursor-pointer">
+                                    <label htmlFor="role-seller" className="cursor-pointer">
                                         <input
+                                            id="role-seller"
                                             type="radio"
                                             name="role"
                                             value="SELLER"
