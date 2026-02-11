@@ -4,8 +4,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ==============================
@@ -19,6 +19,8 @@ model User {
   emailVerified DateTime?
   password      String?    // Hashed password for Credentials provider
   image         String?
+  phone         String?    // Phone number for contact
+  accountType   String    @default("PERSONAL") // PERSONAL, BUSINESS
   role          String    @default("USER") // USER, SELLER, ADMIN
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
