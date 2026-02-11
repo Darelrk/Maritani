@@ -100,6 +100,7 @@ export default function RegisterPage() {
                                     id="name"
                                     name="name"
                                     type="text"
+                                    autoComplete="name"
                                     placeholder="Contoh: Budi Santoso"
                                     required
                                     disabled={isLoading}
@@ -114,6 +115,7 @@ export default function RegisterPage() {
                                     id="email"
                                     name="email"
                                     type="email"
+                                    autoComplete="email"
                                     placeholder="nama@email.com"
                                     required
                                     disabled={isLoading}
@@ -128,6 +130,7 @@ export default function RegisterPage() {
                                     id="phone"
                                     name="phone"
                                     type="tel"
+                                    autoComplete="tel"
                                     placeholder="081234567890"
                                     required
                                     disabled={isLoading}
@@ -146,6 +149,7 @@ export default function RegisterPage() {
                                         id="password"
                                         name="password"
                                         type={showPassword ? "text" : "password"}
+                                        autoComplete="new-password"
                                         placeholder="Minimal 6 karakter"
                                         required
                                         minLength={6}
@@ -240,6 +244,7 @@ export default function RegisterPage() {
                                     type="checkbox"
                                     id="terms"
                                     name="terms"
+                                    autoComplete="off"
                                     required
                                     className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-primary"
                                 />
