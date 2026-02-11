@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maritani - Premium Auction Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0D9488", // Deep Teal/Forest Green mix
+                        "primary-dark": "#115E59",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#0F172A",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E293B",
+                        "accent-gold": "#C5A065", // Premium accent
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                    boxShadow: {
+                        'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
+                        'premium': '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+        .dark .timeline-line::before {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+<nav class="fixed w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex items-center">
+<a class="flex items-center gap-2" href="#">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg">M</div>
+<span class="font-display font-bold text-2xl text-slate-900 dark:text-white tracking-tight">Maritani</span>
+</a>
+<div class="hidden md:flex ml-12 space-x-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition font-medium text-sm" href="#">Beranda</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition font-medium text-sm" href="#">Katalog</a>
+<a class="text-primary font-medium text-sm" href="#">Lelang</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition font-medium text-sm" href="#">Tentang</a>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<button class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white">
+<span class="material-icons-outlined">shopping_cart</span>
+</button>
+<div class="hidden md:flex items-center space-x-4">
+<a class="text-slate-700 dark:text-slate-200 hover:text-primary font-medium text-sm" href="#">Masuk</a>
+<a class="bg-primary hover:bg-teal-700 text-white px-5 py-2.5 rounded-full font-medium text-sm transition-all shadow-md hover:shadow-lg" href="#">Daftar</a>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<header class="relative pt-32 pb-24 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Fresh market produce high quality background" class="w-full h-full object-cover opacity-100 dark:opacity-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsrZaMoZ9UL-jxB1jBwieXXM3UAcV30ysAcAgeoiWG3ptPAq-XAlQpw0yPPXEUemMr7M5mW9AuQct3eLDwDavO1JfzqZpISo8ic9TTsCWBDjhZLtsf7UbygaARTMbN104OE8y2KA3dl17aI1IKhqpkiK0mvRJIYkXAZeJKxbMQjqFc1-PX8viwafo_twEVUWObjOQlntJpUfURruOvfcLO7f9rrLFhcLwH73JOBmfXtSGekL5vEIY2PIBbFKe52e0riTT3sJ8zgM-O"/>
+<div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-background-light dark:from-background-dark/80 dark:via-background-dark/60 dark:to-background-dark"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 backdrop-blur-sm mb-6">
+<span class="material-icons-outlined text-sm">gavel</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Sistem Lelang Eksklusif</span>
+</div>
+<h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                Lelang <span class="text-primary italic">Produk Segar</span> <br/>Premium
+            </h1>
+<p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                Dapatkan akses langsung ke hasil panen terbaik dan tangkapan laut segar melalui sistem penawaran transparan. Langsung dari produsen ke dapur Anda.
+            </p>
+<div class="flex flex-wrap justify-center gap-6 md:gap-12">
+<div class="glass-panel px-8 py-5 rounded-2xl flex flex-col items-center min-w-[140px] transform hover:-translate-y-1 transition duration-300">
+<span class="font-display text-4xl font-bold text-primary mb-1">6</span>
+<span class="text-sm text-slate-600 dark:text-slate-400 font-medium tracking-wide uppercase">Lelang Aktif</span>
+</div>
+<div class="glass-panel px-8 py-5 rounded-2xl flex flex-col items-center min-w-[140px] transform hover:-translate-y-1 transition duration-300">
+<span class="font-display text-4xl font-bold text-primary mb-1">50+</span>
+<span class="text-sm text-slate-600 dark:text-slate-400 font-medium tracking-wide uppercase">Petani &amp; Nelayan</span>
+</div>
+<div class="glass-panel px-8 py-5 rounded-2xl flex flex-col items-center min-w-[140px] transform hover:-translate-y-1 transition duration-300">
+<span class="font-display text-4xl font-bold text-primary mb-1">40%</span>
+<span class="text-sm text-slate-600 dark:text-slate-400 font-medium tracking-wide uppercase">Potensi Hemat</span>
+</div>
+</div>
+</div>
+</header>
+<section class="py-16 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-10 pb-6 border-b border-gray-200 dark:border-gray-800">
+<div>
+<h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Lelang Tersedia</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Penawaran berakhir dalam waktu dekat.</p>
+</div>
+<div class="flex gap-2 mt-4 md:mt-0 bg-white dark:bg-slate-800 p-1 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+<button class="px-4 py-2 text-sm font-medium rounded-md bg-primary text-white shadow-sm">Aktif</button>
+<button class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition">Segera Berakhir</button>
+<button class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition">Baru</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<article class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-premium overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 flex flex-col h-full">
+<div class="relative h-64 overflow-hidden">
+<img alt="Ikan Tuna Sirip Kuning" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-AcbjulucycBhJoNQuMM3vA_8nsiAdb-9LN6jronViXfgEbvb4xtclR081c3GgPXggm0hSJyT2ezhy-pA-8VfwRSl8a7jctZCQs3onoVwFPDRL2BkNi8XITxe1cD5mQc6LFFVYLav0TPTIZyR2irVu-tktpSgSmS-66FiPm-ykbVd_afsIzV2TuJp1eug93PrIUiYudkzqm69xYbVlh4nI3zRVPS2feJPZ0zoyP6bNB062qtPF_-e_WTSi_KG9fs1mwBFPG1YwnJE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
+<div class="absolute top-4 left-4">
+<span class="inline-flex items-center gap-1 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold px-2 py-1 rounded">
+<span class="material-icons-outlined text-sm">water_drop</span> Hasil Laut
+                            </span>
+</div>
+<div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg px-3 py-1.5 flex gap-2 text-white border border-white/10">
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold text-accent-gold">01</span>
+<span class="text-[0.5rem] uppercase tracking-wider opacity-70">Jam</span>
+</div>
+<span class="text-xs font-bold text-slate-400">:</span>
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold">59</span>
+<span class="text-[0.5rem] uppercase tracking-wider opacity-70">Mnt</span>
+</div>
+<span class="text-xs font-bold text-slate-400">:</span>
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold">53</span>
+<span class="text-[0.5rem] uppercase tracking-wider opacity-70">Dtk</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-display text-xl font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                Ikan Tuna Sirip Kuning Premium (5kg)
+                            </h3>
+</div>
+<div class="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 border-b border-gray-100 dark:border-gray-700 pb-4">
+<span class="material-icons-outlined text-sm">storefront</span>
+<span>Oleh: <span class="font-medium text-slate-700 dark:text-slate-300">Nelayan Cilacap Jaya</span></span>
+</div>
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Bid Tertinggi Saat Ini</p>
+<p class="text-2xl font-bold text-primary font-mono">Rp 425.000</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-400 line-through">Rp 350.000</p>
+<div class="flex items-center gap-1 text-xs text-green-600 font-medium bg-green-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                    12 penawar
+                                </div>
+</div>
+</div>
+<div class="mt-auto space-y-3">
+<div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-icons-outlined text-sm text-accent-gold">trending_up</span>
+<span>3 penawaran baru dalam 1 jam terakhir</span>
+</div>
+<div class="flex gap-2">
+<div class="relative flex-grow">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">Rp</span>
+<input class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-gray-600 rounded-lg text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-inner" type="text" value="435.000"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 bg-gray-100 dark:bg-slate-700 px-1 rounded">Min bid +10k</span>
+</div>
+<button class="bg-primary hover:bg-teal-700 text-white font-medium px-6 py-2.5 rounded-lg shadow-lg hover:shadow-primary/50 transition-all flex items-center justify-center">
+                                    Bid
+                                </button>
+</div>
+</div>
+</div>
+</article>
+<article class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-premium overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 flex flex-col h-full">
+<div class="relative h-64 overflow-hidden">
+<img alt="Udang Vaname Super Jumbo" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTZ9sRyYN9zIZOsuP37to94eOF9-vFQIuzSAzsMqwZqU87lZLXTFBlNy3nF5NRJaCDNrU0tBVS7iz1vzXSOD2goD5rHden4jqwgmXaHc1wdsZIZq-pFWZ4d1paedbYWLHFSF1NEo5gxaM_vbVEic_cwZA2gFaIL-zYTCs0-L-XV0P-UqyS76KE1hDsmGLzcS-Dkf-7wzyPfVk21SnX_96qPktmLYj_E5Et1g20Tq4IaQaY4wLvmXkYFBv935zZ8BqRvxTj1iSRgkg4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
+<div class="absolute top-4 left-4">
+<span class="inline-flex items-center gap-1 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold px-2 py-1 rounded">
+<span class="material-icons-outlined text-sm">water_drop</span> Hasil Laut
+                            </span>
+</div>
+<div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg px-3 py-1.5 flex gap-2 text-white border border-white/10">
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold text-accent-gold">04</span>
+<span class="text-[0.5rem] uppercase opacity-70">Jam</span>
+</div>
+<span class="text-xs font-bold text-slate-400">:</span>
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold">59</span>
+<span class="text-[0.5rem] uppercase opacity-70">Mnt</span>
+</div>
+<span class="text-xs font-bold text-slate-400">:</span>
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold">53</span>
+<span class="text-[0.5rem] uppercase opacity-70">Dtk</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-display text-xl font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                Udang Vaname Super Jumbo (2kg)
+                            </h3>
+</div>
+<div class="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 border-b border-gray-100 dark:border-gray-700 pb-4">
+<span class="material-icons-outlined text-sm">storefront</span>
+<span>Oleh: <span class="font-medium text-slate-700 dark:text-slate-300">Tambak Udang Banyuwangi</span></span>
+</div>
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Bid Tertinggi Saat Ini</p>
+<p class="text-2xl font-bold text-primary font-mono">Rp 220.000</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-400 line-through">Rp 180.000</p>
+<div class="flex items-center gap-1 text-xs text-slate-500 font-medium mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                                    8 penawar
+                                </div>
+</div>
+</div>
+<div class="mt-auto space-y-3">
+<div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-icons-outlined text-sm text-slate-400">history</span>
+<span>Terakhir dibid 5 menit lalu</span>
+</div>
+<div class="flex gap-2">
+<div class="relative flex-grow">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">Rp</span>
+<input class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-gray-600 rounded-lg text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-inner" placeholder="225.000" type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 bg-gray-100 dark:bg-slate-700 px-1 rounded">Min +5k</span>
+</div>
+<button class="bg-primary hover:bg-teal-700 text-white font-medium px-6 py-2.5 rounded-lg shadow-lg hover:shadow-primary/50 transition-all flex items-center justify-center">
+                                    Bid
+                                </button>
+</div>
+</div>
+</div>
+</article>
+<article class="group bg-surface-light dark:bg-surface-dark rounded-2xl shadow-premium overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition duration-300 flex flex-col h-full">
+<div class="relative h-64 overflow-hidden">
+<img alt="Daging Sapi Wagyu Lokal" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBosNehon-1OZ8Iw6bmUrpuqD-PfPTtmoeyzUTpe0orzIRRXNO5FcTqQAZgveMPvJU8UxH2FpS743wuBdtlZibEQVXcbrpRKXRmZ1gDNNlSnPP_yJcXe3UcOXfOV-zqLrQrNrT4LdWpCBZPxk9yMoLJflu3B5sdVC5iMLnZkxQzsg-NSdAg2vZKMMuxFrDnjwemn0uhcqNTzKUjbctbuBOo6UvTwrkl-IYSNPLfUMVYjxJ1XfnoRTsp-aoUlJyNipzW_uoURf0ARHdF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
+<div class="absolute top-4 left-4">
+<span class="inline-flex items-center gap-1 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold px-2 py-1 rounded">
+<span class="material-icons-outlined text-sm">restaurant</span> Daging
+                            </span>
+</div>
+<div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md rounded-lg px-3 py-1.5 flex gap-2 text-white border border-white/10">
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold text-accent-gold">29</span>
+<span class="text-[0.5rem] uppercase opacity-70">Jam</span>
+</div>
+<span class="text-xs font-bold text-slate-400">:</span>
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold">59</span>
+<span class="text-[0.5rem] uppercase opacity-70">Mnt</span>
+</div>
+<span class="text-xs font-bold text-slate-400">:</span>
+<div class="flex flex-col items-center">
+<span class="text-xs font-mono font-bold">53</span>
+<span class="text-[0.5rem] uppercase opacity-70">Dtk</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-display text-xl font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                Daging Sapi Wagyu Lokal (2kg)
+                            </h3>
+</div>
+<div class="flex items-center gap-2 mb-4 text-xs text-slate-500 dark:text-slate-400 border-b border-gray-100 dark:border-gray-700 pb-4">
+<span class="material-icons-outlined text-sm">storefront</span>
+<span>Oleh: <span class="font-medium text-slate-700 dark:text-slate-300">Peternakan Sapi Boyolali</span></span>
+</div>
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Bid Tertinggi Saat Ini</p>
+<p class="text-2xl font-bold text-primary font-mono">Rp 320.000</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-400 line-through">Rp 280.000</p>
+<div class="flex items-center gap-1 text-xs text-slate-500 font-medium mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                                    6 penawar
+                                </div>
+</div>
+</div>
+<div class="mt-auto space-y-3">
+<div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-icons-outlined text-sm text-slate-400">info</span>
+<span>Penawaran minimal tercapai</span>
+</div>
+<div class="flex gap-2">
+<div class="relative flex-grow">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">Rp</span>
+<input class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-gray-600 rounded-lg text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-inner" placeholder="330.000" type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 bg-gray-100 dark:bg-slate-700 px-1 rounded">Min +10k</span>
+</div>
+<button class="bg-primary hover:bg-teal-700 text-white font-medium px-6 py-2.5 rounded-lg shadow-lg hover:shadow-primary/50 transition-all flex items-center justify-center">
+                                    Bid
+                                </button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center space-x-2">
+<button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-slate-500 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-50">
+<span class="material-icons-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-medium shadow-md">1</button>
+<button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 transition">2</button>
+<button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 transition">3</button>
+<button class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-slate-500 hover:bg-gray-50 dark:hover:bg-slate-800">
+<span class="material-icons-outlined text-sm">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-light dark:bg-surface-dark relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-primary/5 skew-x-12 transform origin-top-right"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="text-center mb-20">
+<span class="bg-teal-50 dark:bg-teal-900/30 text-primary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">Panduan Lelang</span>
+<h2 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Perjalanan <span class="text-primary">Lelang</span> Anda</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">Sistem sederhana namun canggih untuk memastikan Anda mendapatkan produk terbaik dengan harga yang adil.</p>
+</div>
+<div class="relative timeline-line pt-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="relative group">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-4 border-primary text-primary flex items-center justify-center shadow-lg z-10 mb-6 group-hover:scale-110 transition duration-300">
+<span class="material-icons-outlined text-3xl">search</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm w-full h-full transform transition duration-300 group-hover:-translate-y-2">
+<h3 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">1. Pilih Produk</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Jelajahi katalog lelang eksklusif kami dan temukan produk segar yang sesuai keinginan Anda.</p>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-4 border-gray-200 dark:border-gray-700 text-slate-400 flex items-center justify-center shadow-lg z-10 mb-6 group-hover:border-primary group-hover:text-primary transition duration-300 group-hover:scale-110">
+<span class="material-icons-outlined text-3xl">gavel</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm w-full h-full transform transition duration-300 group-hover:-translate-y-2">
+<h3 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">2. Place Your Bid</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Masukkan penawaran harga. Sistem real-time kami akan memperbarui posisi Anda secara instan.</p>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-4 border-gray-200 dark:border-gray-700 text-slate-400 flex items-center justify-center shadow-lg z-10 mb-6 group-hover:border-primary group-hover:text-primary transition duration-300 group-hover:scale-110">
+<span class="material-icons-outlined text-3xl">emoji_events</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm w-full h-full transform transition duration-300 group-hover:-translate-y-2">
+<h3 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">3. Menangkan</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Jadilah penawar tertinggi saat waktu habis. Notifikasi kemenangan akan dikirim ke email &amp; WhatsApp.</p>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-white dark:bg-slate-800 border-4 border-gray-200 dark:border-gray-700 text-slate-400 flex items-center justify-center shadow-lg z-10 mb-6 group-hover:border-primary group-hover:text-primary transition duration-300 group-hover:scale-110">
+<span class="material-icons-outlined text-3xl">local_shipping</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm w-full h-full transform transition duration-300 group-hover:-translate-y-2">
+<h3 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">4. Terima Produk</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Produk segera dikemas dengan standar premium dan dikirim langsung ke pintu rumah Anda.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-20 flex flex-wrap justify-center gap-6 md:gap-12 opacity-80 border-t border-gray-200 dark:border-gray-800 pt-10">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
+<span class="material-icons-outlined text-primary">verified_user</span> Garansi Uang Kembali
+                </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
+<span class="material-icons-outlined text-primary">schedule</span> Pengiriman 24 Jam
+                </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
+<span class="material-icons-outlined text-primary">trending_up</span> Bid Real-time
+                </div>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
+<span class="material-icons-outlined text-primary">check_circle</span> Produk Segar
+                </div>
+</div>
+</div>
+</section>
+<footer class="bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+<div class="lg:col-span-2">
+<a class="flex items-center gap-2 mb-6" href="#">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg">M</div>
+<span class="font-display font-bold text-2xl text-slate-900 dark:text-white tracking-tight">Maritani</span>
+</a>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 max-w-sm">
+                        Platform marketplace premium yang menghubungkan Anda langsung dengan ribuan nelayan dan petani lokal Indonesia. Kualitas terbaik, harga transparan.
+                    </p>
+<div class="relative max-w-sm">
+<input class="w-full pl-4 pr-12 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Email Anda" type="email"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-primary rounded-md flex items-center justify-center text-white hover:bg-teal-700 transition">
+<span class="material-icons-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-6">Produk</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition" href="#">Hasil Laut</a></li>
+<li><a class="hover:text-primary transition" href="#">Sayur &amp; Buah</a></li>
+<li><a class="hover:text-primary transition" href="#">Daging &amp; Ternak</a></li>
+<li><a class="hover:text-primary transition" href="#">Olahan Pangan</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-6">Perusahaan</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition" href="#">Tentang Kami</a></li>
+<li><a class="hover:text-primary transition" href="#">Mitra Petani</a></li>
+<li><a class="hover:text-primary transition" href="#">Karir</a></li>
+<li><a class="hover:text-primary transition" href="#">Blog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-6">Hubungi Kami</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li class="flex items-center gap-2"><span class="material-icons-outlined text-xs">chat</span> WhatsApp</li>
+<li class="flex items-center gap-2"><span class="material-icons-outlined text-xs">email</span> halo@maritani.id</li>
+<li class="flex items-center gap-2"><span class="material-icons-outlined text-xs">location_on</span> Jakarta, Indonesia</li>
+</ul>
+<div class="flex gap-4 mt-6">
+<a class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition" href="#"><i class="material-icons-outlined text-sm">facebook</i></a>
+<a class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition" href="#"><i class="material-icons-outlined text-sm">camera_alt</i></a>
+<a class="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition" href="#"><i class="material-icons-outlined text-sm">alternate_email</i></a>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+<p>© 2026 Maritani. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-slate-900 dark:hover:text-white" href="#">Privasi</a>
+<a class="hover:text-slate-900 dark:hover:text-white" href="#">Syarat</a>
+<span>BCA Mandiri Gopay</span>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

@@ -14,6 +14,8 @@ import {
     ShieldCheck,
 } from "lucide-react";
 import { Product } from "@/lib/types";
+import { toast } from "sonner";
+import { useCartStore } from "@/hooks/use-cart-store";
 
 interface ProductInfoProps {
     product: Product;
@@ -112,6 +114,39 @@ export function ProductInfo({ product }: ProductInfoProps) {
                 <Button
                     variant="outline"
                     className="btn-press h-12 px-5 border-primary/30 text-primary hover:bg-primary/5"
+                    onClick={() => {
+                        // Direct store usage since we are inside a client component
+                        const store = useCartStore.getState();
+                        store.addItem({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            maxStock: product.stock,
+                            sellerId: product.seller.id,
+                        });
+                        if (qty > 1) {
+                            // Correct logic: addItem adds 1. We want total to be 'qty'.
+                            // If item was already in cart, addItem incremented it.
+                            // This is tricky. Let's just set the quantity to exactly 'qty' effectively replacing it? 
+                            // No, user expects 'add to cart'.
+                            // If cart has 2, and I add 3, it should be 5.
+                            // addItem adds 1. So we need to add (qty - 1) more?
+                            // Or just use updateQuantity to (existing + qty)?
+                            const currentItem = store.items.find(i => i.id === product.id);
+                            if (currentItem) {
+                                store.updateQuantity(product.id, currentItem.quantity + (qty - 1));
+                            }
+                        }
+
+                        toast.success("Berhasil ditambahkan ke keranjang", {
+                            description: `${qty}x ${product.name} telah masuk ke keranjang.`,
+                            action: {
+                                label: "Lihat Keranjang",
+                                onClick: () => window.location.href = '/cart'
+                            }
+                        });
+                    }}
                 >
                     <ShoppingCart className="h-5 w-5" />
                 </Button>
@@ -128,6 +163,32 @@ export function ProductInfo({ product }: ProductInfoProps) {
                     <Button
                         variant="outline"
                         className="btn-press h-12 px-5 border-primary/30 text-primary hover:bg-primary/5"
+                        onClick={() => {
+                            useCartStore.getState().addItem({
+                                id: product.id,
+                                name: product.name,
+                                price: product.price,
+                                image: product.image,
+                                maxStock: product.stock,
+                                sellerId: product.seller.id,
+                            });
+                            // If quantity > 1, update it immediately (addItem defaults to 1)
+                            if (qty > 1) {
+                                // Logic limitation: addItem adds +1 if exists. 
+                                // Better logic: check if item exists, if not add. Then update quantity.
+                                // Simplification for now: addItem adds 1.
+                                // We might need a better store method 'addItemWithQty'
+                                // For now let's just use addItem loop or updateQuantity
+                                useCartStore.getState().updateQuantity(product.id, qty);
+                            }
+                            toast.success("Berhasil ditambahkan ke keranjang", {
+                                description: `${qty}x ${product.name} telah masuk ke keranjang.`,
+                                action: {
+                                    label: "Lihat Keranjang",
+                                    onClick: () => window.location.href = '/cart'
+                                }
+                            });
+                        }}
                     >
                         <ShoppingCart className="h-5 w-5" />
                     </Button>

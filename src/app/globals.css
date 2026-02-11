@@ -208,6 +208,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
+  --font-display: var(--font-serif);
 
   /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -243,7 +244,15 @@ html {
 
 /* === Heading Font === */
 h1, h2, h3, h4 {
-  font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-display), var(--font-heading), var(--font-sans), system-ui, sans-serif;
+}
+
+/* === Text Gradient (Stitch Design) === */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #0F766E, #34D399);
 }
 
 /* === Card Hover Lift === */

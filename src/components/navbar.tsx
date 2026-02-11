@@ -6,14 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import {
-    Fish,
-    Leaf,
     Menu,
     ShoppingCart,
     User as UserIcon,
     LogOut,
     LayoutDashboard,
 } from "lucide-react";
+import { MaritaniLogo } from "@/components/maritani-logo";
 import type { Session } from "next-auth";
 import { handleLogout } from "@/lib/actions";
 import { useCartStore } from "@/hooks/use-cart-store";
@@ -44,14 +43,14 @@ export function Navbar({ session }: NavbarProps) {
     const totalItems = useCartStore((state) => state.totalItems());
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+            <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-110">
-                        <Fish className="h-5 w-5" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                        <MaritaniLogo size={22} />
                     </div>
-                    <span className="text-xl font-bold tracking-tight">
+                    <span className="text-2xl font-bold tracking-tight">
                         Mari<span className="text-primary">tani</span>
                     </span>
                 </Link>
@@ -70,8 +69,8 @@ export function Navbar({ session }: NavbarProps) {
                 </nav>
 
                 {/* Right Actions */}
-                <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon" className="relative" asChild>
+                <div className="flex items-center gap-3">
+                    <Button variant="ghost" size="icon" className="relative" asChild>
                         <Link href="/cart">
                             <ShoppingCart className="h-4 w-4" />
                             {totalItems > 0 && (
@@ -82,7 +81,10 @@ export function Navbar({ session }: NavbarProps) {
                         </Link>
                     </Button>
 
-                    <div className="hidden sm:flex items-center gap-2">
+                    {/* Divider */}
+                    <div className="hidden sm:block h-6 w-px bg-border" />
+
+                    <div className="hidden sm:flex items-center gap-3">
                         {user ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -127,17 +129,15 @@ export function Navbar({ session }: NavbarProps) {
                             <>
                                 <Button variant="ghost" size="sm" asChild>
                                     <Link href="/login">
-                                        <UserIcon className="mr-2 h-4 w-4" />
                                         Masuk
                                     </Link>
                                 </Button>
                                 <Button
                                     size="sm"
-                                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                                    className="rounded-full px-5 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30"
                                     asChild
                                 >
                                     <Link href="/register">
-                                        <Leaf className="mr-2 h-4 w-4" />
                                         Daftar
                                     </Link>
                                 </Button>
@@ -156,7 +156,7 @@ export function Navbar({ session }: NavbarProps) {
                             <div className="flex flex-col gap-4 mt-8">
                                 <Link href="/" className="flex items-center gap-2 mb-4">
                                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                                        <Fish className="h-4 w-4" />
+                                        <MaritaniLogo size={18} />
                                     </div>
                                     <span className="text-lg font-bold">
                                         Mari<span className="text-primary">tani</span>
@@ -206,9 +206,8 @@ export function Navbar({ session }: NavbarProps) {
                                                     Masuk
                                                 </Link>
                                             </Button>
-                                            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" asChild>
+                                            <Button className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/30" asChild>
                                                 <Link href="/register">
-                                                    <Leaf className="mr-2 h-4 w-4" />
                                                     Daftar
                                                 </Link>
                                             </Button>

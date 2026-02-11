@@ -30,9 +30,13 @@ export function AddToCartButton({ product, className, iconOnly = false }: AddToC
             sellerId: product.seller.id,
         });
 
-        // alert("Berhasil ditambahkan ke keranjang!"); 
-        // Idealnya pakai Toast. Untuk sekarang alert atau console log.
-        console.log("Added to cart:", product.name);
+        toast.success("Berhasil ditambahkan ke keranjang", {
+            description: `${product.name} telah masuk ke keranjang belanja Anda.`,
+            action: {
+                label: "Lihat Keranjang",
+                onClick: () => window.location.href = '/cart'
+            }
+        });
     };
 
     if (iconOnly) {
