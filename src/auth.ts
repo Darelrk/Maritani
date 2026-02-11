@@ -49,6 +49,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                 // Cast to Prisma User type which has role field
                 const prismaUser = user as User;
                 token.role = prismaUser.role;
+                token.accountType = prismaUser.accountType;
             }
             return token;
         },
@@ -56,6 +57,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             if (token.sub && session.user) {
                 session.user.id = token.sub;
                 session.user.role = (token.role as "USER" | "SELLER" | "ADMIN") || "USER";
+                (session.user as any).accountType = token.accountType;
             }
             return session;
         }

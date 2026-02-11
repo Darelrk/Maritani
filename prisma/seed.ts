@@ -7,27 +7,28 @@ const prisma = new PrismaClient();
 async function main() {
     console.log("Start seeding...");
 
-    const hashedPassword = await bcrypt.hash("seller123", 10);
-    const hashedBuyerPassword = await bcrypt.hash("buyer123", 10);
+    const hashedPassword = await bcrypt.hash("test123", 10);
 
     // 1. Create Seller User
     const seller = await prisma.user.upsert({
-        where: { email: "seller@maritani.com" },
+        where: { email: "demo.seller@maritani.id" },
         update: {
             password: hashedPassword,
+            name: "Demo Seller",
         },
         create: {
-            email: "seller@maritani.com",
-            name: "Pak Budi Santoso",
+            email: "demo.seller@maritani.id",
+            name: "Demo Seller",
             password: hashedPassword,
             role: "SELLER",
+            accountType: "BUSINESS",
             sellerProfile: {
                 create: {
-                    storeName: "Nelayan Cilacap Jaya",
-                    description: "Menyediakan hasil laut segar tangkapan harian langsung dari TPI Cilacap.",
-                    city: "Cilacap",
-                    address: "Jl. Pelabuhan No. 45",
-                    status: "ACTION",
+                    storeName: "Toko Demo Seller",
+                    description: "Toko sayuran segar berkualitas",
+                    city: "Jakarta",
+                    address: "Jl. Demo No. 1",
+                    status: "ACTIVE",
                 },
             },
         },
@@ -35,22 +36,25 @@ async function main() {
 
     console.log({ seller });
 
-    // 1b. Create Buyer User
-    const buyer = await prisma.user.upsert({
-        where: { email: "buyer@maritani.com" },
+    // 1b. Create Personal/Buyer User
+    const personal = await prisma.user.upsert({
+        where: { email: "demo.personal@maritani.id" },
         update: {
-            password: hashedBuyerPassword
+            password: hashedPassword,
+            name: "Demo Personal",
         },
         create: {
-            email: "buyer@maritani.com",
-            name: "Siti Pembeli",
-            password: hashedBuyerPassword,
-            role: "USER"
+            email: "demo.personal@maritani.id",
+            name: "Demo Personal",
+            password: hashedPassword,
+            role: "USER",
+            accountType: "PERSONAL",
         }
     });
-    console.log({ buyer });
 
-    // 2. Create Products (linked to Seller)
+    console.log({ personal });
+
+    // 2. Create Products (linked to Seller) - FROM DUMMY DATA
     // Retrieve the seller profile ID first
     const sellerProfile = await prisma.sellerProfile.findUnique({
         where: { userId: seller.id },
@@ -58,56 +62,47 @@ async function main() {
 
     if (!sellerProfile) throw new Error("Seller profile failed to create");
 
-    // Check if products exist to avoid duplicates if seed runs multiple times
-    const existingProducts = await prisma.product.count();
-    if (existingProducts > 0) {
-        console.log("Products already seeded, skipping creation.");
-    } else {
-        const products = [
-            {
-                name: "Ikan Tuna Sirip Kuning Segar (Yellowfin Tuna)",
-                description: "Ikan tuna segar tangkapan harian, cocok untuk sashimi atau steak. Berat per ekor rata-rata 3-5kg. Dikirim dalam box styrofoam dengan es.",
-                price: 85000,
-                stock: 50,
-                category: "Hasil Laut",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop"]),
-                unit: "kg",
-                isFresh: true,
-                harvestTime: "Tangkap dini hari tadi",
-            },
-            {
-                name: "Udang Vaname Segar (Size 40-50)",
-                description: "Udang vaname segar dari tambak intensif. Tekstur manis dan renyah. Cocok untuk goreng tepung atau asam manis.",
-                price: 65000,
-                stock: 100,
-                category: "Hasil Laut",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=2070&auto=format&fit=crop"]),
-                unit: "kg",
-                isFresh: true,
-                harvestTime: "Panen pagi ini",
-            },
-            {
-                name: "Bayam Organik Ikat Besar",
-                description: "Bayam hijau organik bebas pestisida. Daun lebar dan segar. Dipanen saat ada pesanan.",
-                price: 5000,
-                stock: 200,
-                category: "Sayur & Buah",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=2070&auto=format&fit=crop"]),
-                unit: "ikat",
-                isFresh: true,
-                harvestTime: "Petik langsung",
-            },
-        ];
+    const { ALL_PRODUCTS } = require("../src/lib/dummy-data");
 
-        for (const p of products) {
-            const product = await prisma.product.create({
-                data: {
-                    ...p,
-                    sellerId: sellerProfile.id,
-                }
-            })
-            console.log(`Created product with id: ${product.id}`)
-        }
+    console.log(`Seeding ${ALL_PRODUCTS.length} products from dummy data...`);
+
+    for (const p of ALL_PRODUCTS) {
+        // We need to match the fields from dummy data to prisma schema
+        // Dummy data has: id, name, price, originalPrice, image, description(missing), category, isFresh, harvestTime, seller, rating, sold
+
+        await prisma.product.upsert({
+            where: { id: p.id }, // Force ID from dummy data
+            update: {
+                name: p.name,
+                price: p.price,
+                originalPrice: p.originalPrice,
+                stock: p.stock,
+                category: p.category,
+                images: JSON.stringify([p.image]), // Convert single URL to JSON array
+                unit: "kg", // Default
+                isFresh: p.isFresh || true,
+                harvestTime: p.harvestTime,
+                rating: p.rating,
+                sold: p.sold,
+                sellerId: sellerProfile.id,
+            },
+            create: {
+                id: p.id, // FORCE ID
+                name: p.name,
+                price: p.price,
+                originalPrice: p.originalPrice,
+                stock: p.stock,
+                category: p.category,
+                images: JSON.stringify([p.image]),
+                unit: "kg",
+                isFresh: p.isFresh || true,
+                harvestTime: p.harvestTime,
+                rating: p.rating,
+                sold: p.sold,
+                sellerId: sellerProfile.id,
+            }
+        });
+        console.log(`Upserted product: ${p.name} (${p.id})`);
     }
 
     console.log("Seeding finished.");

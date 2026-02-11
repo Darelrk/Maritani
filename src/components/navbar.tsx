@@ -109,9 +109,11 @@ export function Navbar({ session }: NavbarProps) {
                                         <UserIcon className="mr-2 h-4 w-4" />
                                         <span>Profil</span>
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <LayoutDashboard className="mr-2 h-4 w-4" />
-                                        <span>Dashboard</span>
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/dashboard" className="cursor-pointer w-full">
+                                            <LayoutDashboard className="mr-2 h-4 w-4" />
+                                            <span>Dashboard</span>
+                                        </Link>
                                     </DropdownMenuItem>
 
                                     <DropdownMenuSeparator />

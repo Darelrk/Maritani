@@ -1,6 +1,11 @@
 
 import { PrismaClient } from "@prisma/client";
 
+// Ensure environment variables are loaded
+if (typeof window === "undefined") {
+    require("dotenv").config();
+}
+
 const prismaClientSingleton = () => {
     return new PrismaClient();
 };

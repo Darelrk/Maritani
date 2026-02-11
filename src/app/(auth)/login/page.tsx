@@ -22,7 +22,7 @@ export default function LoginPage() {
         try {
             await authenticate(callbackUrl, formData);
         } catch (err) {
-            setError("Email atau password salah. Silakan coba lagi.");
+            setError("Email atau password tidak sesuai. Periksa kembali data Anda.");
         } finally {
             setIsLoading(false);
         }
@@ -55,7 +55,7 @@ export default function LoginPage() {
                                 name="email"
                                 type="email"
                                 autoComplete="email"
-                                defaultValue="buyer@maritani.com"
+                                placeholder="demo.personal@maritani.id"
                                 required
                                 className="block w-full"
                                 disabled={isLoading}
@@ -71,7 +71,7 @@ export default function LoginPage() {
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
-                                defaultValue="buyer123"
+                                placeholder="test123"
                                 required
                                 className="block w-full"
                                 disabled={isLoading}
@@ -89,11 +89,11 @@ export default function LoginPage() {
                         </Button>
                     </div>
                 </form>
-
-                <div className="mt-4 p-4 bg-sky-50 rounded-lg text-xs text-sky-800">
-                    <strong>Demo Credentials:</strong><br />
-                    Buyer: <code>buyer@maritani.com</code> / <code>buyer123</code><br />
-                    Seller: <code>seller@maritani.com</code> / <code>seller123</code>
+ 
+                <div className="mt-4 p-4 bg-stone-100 rounded-lg text-xs text-stone-600">
+                    <strong>Akun Demo:</strong><br/>
+                    Personal: demo.personal@maritani.id / test123<br/>
+                    Seller: demo.seller@maritani.id / test123
                 </div>
             </div>
         </div>
