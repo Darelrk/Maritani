@@ -79,12 +79,7 @@ export default function RegisterPage() {
 
                 <Card className="border-border/40 shadow-lg">
                     <CardHeader className="space-y-1">
-                        <div className="flex items-center justify-between">
-                            <CardTitle className="text-2xl font-bold">Daftar Akun</CardTitle>
-                            <Badge variant="outline" className="border-primary/20 text-primary">
-                                Gratis
-                            </Badge>
-                        </div>
+                        <CardTitle className="text-2xl font-bold">Daftar Akun</CardTitle>
                         <CardDescription>
                             Buat akun untuk mulai berbelanja produk segar
                         </CardDescription>
