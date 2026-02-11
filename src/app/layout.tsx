@@ -61,7 +61,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} ${playfair.variable} antialiased flex flex-col min-h-screen`}
       >
         <Navbar session={session} />
-        <main className="flex-1">
+        <main className="flex-1 pt-20">
           {children}
         </main>
         <Footer />
