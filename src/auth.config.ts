@@ -6,6 +6,11 @@ export const authConfig = {
         signIn: "/login",
         newUser: "/register",
     },
+    session: {
+        strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+    },
+    trustHost: true, // Required for localhost/development
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;

@@ -79,15 +79,17 @@ export async function authenticate(
     formData: FormData
 ): Promise<void> {
     try {
+        console.log("[Action] Authenticate called with:", { email: formData.get("email") });
         await signIn("credentials", {
             email: formData.get("email"),
             password: formData.get("password"),
             redirectTo: callbackUrl || "/",
         });
     } catch (error) {
+        console.error("[Action] Authentication error:", error);
         if (error instanceof AuthError) {
             // Handle auth error without returning value
-            console.error("Authentication error:", error.type);
+            console.error("[Action] AuthError type:", error.type);
             throw error;
         }
         throw error;
